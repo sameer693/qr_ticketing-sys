@@ -1,0 +1,9 @@
+{% extends 'layout.html' %}
+
+{% block title %}Generate Ticket{% endblock %}
+
+{% block content %}
+    <h1>Ticket Generated</h1>
+    <p>Ticket for: {{ username }}</p>
+    <img src="{{ url_for('static', filename='tickets/' + username + '.png') }}" alt="Ticket QR Code">
+{% endblock %}
