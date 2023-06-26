@@ -4,6 +4,7 @@ import qrcode
 from helpers import login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 from flask_qrcode import QRcode
+import os
 app = Flask(__name__)
 
 app.secret_key = 'your_secret_key'
