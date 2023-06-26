@@ -2,7 +2,10 @@ from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import qrcode
 from helpers import login_required
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_qrcode import QRcode
 app = Flask(__name__)
+QRcode(app)
 app.secret_key = 'your_secret_key'
 
 # Database connection
@@ -11,7 +14,7 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-
+#export FLASK_APP=hello.py
 # Home page
 @app.route('/')
 @login_required
@@ -35,16 +38,15 @@ def register():
         # Check if username already exists
         cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
         user = cursor.fetchone()
-
+        
         if user:
             return render_template('register.html', error='Username already exists')
+        # Hash the password
+        hashed_password = generate_password_hash(password)
 
         # Insert new user into the database
-        cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, password))
+        cursor.execute('INSERT INTO users (username, password) VALUES (?, ?)', (username, hashed_password))
         conn.commit()
-
-        session['username'] = username
-
         return redirect('/')
     
     return render_template('register.html')
@@ -63,7 +65,7 @@ def login():
         cursor.execute('SELECT * FROM users WHERE username = ?', (username,))
         user = cursor.fetchone()
 
-        if user and user['password'] == password:
+        if user and check_password_hash( user['password'], password):
             session['username'] = username
             return redirect('/')
         else:
