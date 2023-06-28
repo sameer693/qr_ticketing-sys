@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
-import qrcode
 from helpers import login_required
 from werkzeug.security import check_password_hash, generate_password_hash
-from flask_qrcode import QRcode
-import os
+from ticket import Ticket,generate_qr_code
+import time
 app = Flask(__name__)
 
 app.secret_key = 'your_secret_key'
@@ -88,16 +87,10 @@ def generate_ticket():
     username = session['username']
 
     # Generate QR code for the ticket
-    ticket_data = f'Ticket for {username}'
-    qr = qrcode.QRCode(version=1, box_size=10, border=5)
-    qr.add_data(ticket_data)
-    qr.make(fit=True)
-    qr_image = qr.make_image(fill='black', back_color='white')
-
     # Save the QR code image
-    qr_image.save(f'static/tickets/{username}.png')
+    generate_qr_code(qr_code_file=f'static/tickets/{username}.png')
 
-    return render_template('ticket.html', username=username)
+    return render_template('tickets.html', username=username)
 
 if __name__ == '__main__':
     app.run(debug=True)
