@@ -2,3 +2,7 @@ flask
 flask_qrcode
 sqlite3
 werkzeug.security
+import time
+import hashlib
+import qrcode
+import os

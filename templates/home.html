@@ -5,5 +5,19 @@
 {% block content %}
     <h1>Welcome, {{ username }}</h1>
     <p>This is the home page of the ticketing system.</p>
-    <a href="/generate_ticket" class="btn btn-primary">Generate Ticket</a>
+    
+    <div class="container">
+        <h1>Generate Ticket</h1>
+        <form action="/" method="POST">
+            <div class="mb-3">
+                <label for="start_location" class="form-label">Starting Destination:</label>
+                <input type="text" class="form-control" id="start_location" name="start_location" required>
+            </div>
+            <div class="mb-3">
+                <label for="end_location" class="form-label">Ending Destination:</label>
+                <input type="text" class="form-control" id="end_location" name="end_location" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Generate Ticket</button>
+        </form>
+    </div>
 {% endblock %}

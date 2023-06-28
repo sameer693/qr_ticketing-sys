@@ -17,10 +17,13 @@ class Ticket:
         if current_time - self.creation_time <= validity_duration:
             return True
         else:
-            del self
             return False
-
-def generate_qr_code(hash_length=10, qr_code_file="qr_code.png"):
+    def valid_upto(self):
+        current_time = time.time()
+        validity_duration = 3600  # 1 hour validity
+        return validity_duration - (current_time - self.creation_time)
+         
+def generate_qr_code( start_location, destination,hash_length=10, qr_code_file="qr_code.png"):
     # Generate a random hash
     random_string = str(hashlib.sha256(os.urandom(32)).hexdigest())[:hash_length]
 
@@ -34,5 +37,5 @@ def generate_qr_code(hash_length=10, qr_code_file="qr_code.png"):
     qr_img.save(qr_code_file)
     print(f"QR code generated with hash: {random_string}")
     print(f"QR code saved to: {qr_code_file}")
-
+    return Ticket(random_string,time.time(),start_location,destination,qr_code_file)
 # Example usage
