@@ -105,5 +105,9 @@ def generate_ticket():
         return render_template("no_display.html")
     t=Ticket(data['hash'],data['time'],data['start'],data['destination'],f'static/tickets/{session["username"]}.png')    
     return render_template('tickets.html', username=username,start=t.start_location,destination=t.destination,time_remaining=t.valid_upto())
+@app.route('/myrfid')
+@login_required
+def rfid():
+    return render_template('myrfid.html')
 if __name__ == '__main__':
     app.run(debug=True)
