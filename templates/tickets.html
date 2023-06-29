@@ -3,20 +3,27 @@
 {% block title %}Generate Ticket{% endblock %}
 
 {% block content %}
-    <h1>Ticket Generated</h1>
+<div class="flex-container" style="max-width: 240px;">
+    <h3>Ticket Generated</h3>
     <p>Ticket for: {{ username }}</p>
     <p>starting from :{{ start }}</p>
     <p>destiantion at :{{ destination }}</p>
     <p>valid upto  :{{ time_remaining }}</p>
-    <div class="card" style="width: 18rem;">
-        <img src="/static/tickets/{{username}}.png" class="card-img-top" alt="QR Code">
-        <div class="card-body">
-          <h5 class="card-title">QR Code</h5>
+</div>
+      <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img  src="/static/tickets/{{username}}.png"  class="img-fluid rounded-start" alt="QR Code">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title">QR Code</h5>
           <p class="card-text">Scan the QR code for more information.</p>
           <button class="btn btn-primary" data-toggle="modal" data-target="#qrCodeModal">Maximize</button>
+            </div>
+          </div>
         </div>
       </div>
-      
       <!-- Modal -->
       <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">

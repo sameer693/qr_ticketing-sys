@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>{% block title %}My Flask App{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.90">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
 </head>
@@ -48,11 +49,15 @@
         {% endblock %}
     </div>
 
-    <footer class="bg-light py-4">
-        <div class="container text-center">
-            <span>&copy; 2023 My App. All rights reserved.</span>
+    <footer class="bg-dark text-white text-center py-1 mt-2 fixed-bottom">
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <p>&copy; 2023 Ticketing System. All rights reserved.</p>
+            </div>
+          </div>
         </div>
-    </footer>
+      </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
