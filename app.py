@@ -99,15 +99,46 @@ def generate_ticket():
     username = session['username']
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM history WHERE userid = ?', (session['id'],))
+    cursor.execute('SELECT * FROM history WHERE userid = ? and status=0', (session['id'],))
     data = cursor.fetchone()
     if not data:
         return render_template("no_display.html")
     t=Ticket(data['hash'],data['time'],data['start'],data['destination'],f'static/tickets/{session["username"]}.png')    
     return render_template('tickets.html', username=username,start=t.start_location,destination=t.destination,time_remaining=t.valid_upto())
+
 @app.route('/myrfid')
 @login_required
 def rfid():
-    return render_template('myrfid.html')
+    username=session['username']
+    return render_template('myrfid.html',username=username)
+
+@app.route('/myhistory')
+@login_required
+def history():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM history WHERE userid = ? and status=1', (session['id'],))
+    data = cursor.fetchall()
+    if not data:
+        return render_template("no_display.html")
+    return render_template('history.html',data=data)
+
+
+@app.route('/scan_qr_code')
+def scan_qr_code():
+    return render_template('scanner.html')
+@app.route('/process_qr_code', methods=['POST'])
+def process_qr_code():
+    qr_code_data = request.form['qr_code_data']
+    
+    # Handle the scanned QR code data
+    # ...
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('UPDATE history SET status=1 where hash=?', (qr_code_data,))
+    conn.commit()
+
+    return render_template("no_display.html")
+
 if __name__ == '__main__':
     app.run(debug=True)

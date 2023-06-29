@@ -8,5 +8,30 @@
     <p>starting from :{{ start }}</p>
     <p>destiantion at :{{ destination }}</p>
     <p>valid upto  :{{ time_remaining }}</p>
-    <img src="/static/tickets/{{username}}.png" alt="Ticket QR Code">
+    <div class="card" style="width: 18rem;">
+        <img src="/static/tickets/{{username}}.png" class="card-img-top" alt="QR Code">
+        <div class="card-body">
+          <h5 class="card-title">QR Code</h5>
+          <p class="card-text">Scan the QR code for more information.</p>
+          <button class="btn btn-primary" data-toggle="modal" data-target="#qrCodeModal">Maximize</button>
+        </div>
+      </div>
+      
+      <!-- Modal -->
+      <div class="modal fade" id="qrCodeModal" tabindex="-1" role="dialog" aria-labelledby="qrCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="qrCodeModalLabel">Maximized QR Code</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body text-center">
+              <img src="/static/tickets/{{username}}.png" alt="QR Code">
+            </div>
+          </div>
+        </div>
+      </div>
+      
 {% endblock %}

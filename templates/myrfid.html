@@ -3,7 +3,7 @@
 {% block title %}MY RFID 
 {% endblock %}
 {% block content %}
-<h1 class="display-4">your card</h1>
+<h1 class="display-4">your RFID card</h1>
 <style>
     .card {
         width: 500px;
@@ -39,6 +39,7 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        
     }
     
     .map-img {
@@ -117,21 +118,16 @@
           <img src="https://i.ibb.co/PYss3yv/map.png" class="map-img">
           <div class="row">
             <img src="https://i.ibb.co/G9pDnYJ/chip.png" width="60px">
-            <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="60px">
           </div>
           <div class="row card-no">
             <p>5244</p>
             <p>2150</p>
-            <p>8252</p>
+            <p>8269</p>
             <p>6420</p>
           </div>
           <div class="row card-holder">
-            <p>CARD HPLDER</p>
+            <h1>{{username}}</h1>
             <p>VALID TILL</p>
-          </div>
-          <div class="row name">
-            <p>JOE ALISON</p>
-            <p>10 / 25</p>
           </div>
         </div>
         <div class="back">
@@ -144,11 +140,10 @@
             <p>824</p>
           </div>
           <div class="row card-text">
-            <p>this is a virtual card design using HTML and CSS. You can aslo design something like this.</p>
+            <p>this is a virtual card design using HTML and CSS.IT is just your rfid card .</p>
           </div>
           <div class="row signature">
             <p>CUSTOMER SIGNATURE</p>
-            <img src="https://i.ibb.co/WHZ3nRJ/visa.png" width="80px">
           </div>
         </div>
       </div>

@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<style>.success-message {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #3cba54;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    z-index: 9999;
+}
+
+.success-icon {
+    margin-right: 10px;
+}
+
+.success-text {
+    font-weight: bold;
+}
+
+/* Add animate.css library for animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.animate__animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+.animate__fadeIn {
+    animation-name: fadeIn;
+}
+</style>
+    <div class="container">
+        <h1>Scan QR Code</h1>
+        <video id="preview" width="100%"></video>
+        <div id="success-message" class="success-message">
+            <span id="success-icon" class="success-icon">&#10003;</span>
+            <span id="success-text" class="success-text">QR code data sent successfully.</span>
+        </div>
+    </div>
+
+    <script src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <script>
+        let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+
+        scanner.addListener('scan', function(content) {
+            // Send the scanned QR code data to the Flask server
+            sendScannedData(content);
+        });
+
+        Instascan.Camera.getCameras().then(function(cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                console.error('No cameras found.');
+            }
+        });
+
+        function sendScannedData(data) {
+            // Create a new FormData object
+            let formData = new FormData();
+
+            // Add the scanned QR code data to the FormData object
+            formData.append('qr_code_data', data);
+
+            // Send the FormData to the Flask server using fetch API
+            fetch('/process_qr_code', {
+                method: 'POST',
+                redirect: "follow",
+                body: formData
+            })
+            .then(response => {
+                console.log('QR code data sent successfully.');
+                showSuccessAnimation();
+            })
+            .catch(error => {
+                console.error('Error sending QR code data:', error);
+            });
+        }
+
+        function showSuccessAnimation() {
+            let successMessage = document.getElementById('success-message');
+            successMessage.style.display = 'block';
+
+            // Add CSS class for animation
+            successMessage.classList.add('animate__animated', 'animate__fadeIn');
+
+            // Remove animation classes after animation completes
+            successMessage.addEventListener('animationend', function() {
+                successMessage.classList.remove('animate__animated', 'animate__fadeIn');
+                successMessage.style.display = 'none';
+            });
+        }
+    </script>
+{% endblock %}

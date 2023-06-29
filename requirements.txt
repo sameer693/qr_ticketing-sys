@@ -1,0 +1,8 @@
+flask
+flask_qrcode
+sqlite3
+werkzeug.security
+time
+hashlib
+qrcode
+os

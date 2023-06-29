@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="container">
+        <h1>Travel History</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Ticket ID</th>
+                    <th scope="col">Start Location</th>
+                    <th scope="col">End Location</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in data %}
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td>{{ c.start }}</td>
+                    <td>{{ c.destination }}</td>
+                    <td>{{ c.time }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+
+
