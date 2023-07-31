@@ -1,7 +1,6 @@
 # Bus Rapid Transit (BRT) Ticketing System App
     #### Video Demo:  <URL HERE>
 #### Description:
-![BRT Ticketing System](app_screenshot.png)
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -35,4 +34,7 @@ The Bus Rapid Transit (BRT) Ticketing System is a web application designed to fa
 - JavaScript: Used for implementing client-side functionalities, including the QR code scanning feature.
 - Instascan: A JavaScript library for QR code scanning.
 - HTML and CSS: For designing the user interface of the application.
+## Screenshots
+![BRT Ticketing System](https://github.com/sameer693/qr_ticketing-sys/assets/113182835/9232237b-a554-4bd5-b03a-3a86539012d6)
+![BRT Ticketing System](https://github.com/sameer693/qr_ticketing-sys/assets/113182835/bb194d63-96d0-456d-a96c-f66fcf9af70c)
 
