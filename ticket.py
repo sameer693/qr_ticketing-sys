@@ -44,8 +44,7 @@ def generate_qr_code(
 
     # Save the QR code image to file
     qr_img.save(qr_code_file)
-    print(f"QR code generated with hash: {random_string}")
-    print(f"QR code saved to: {qr_code_file}")
+    
     return Ticket(random_string, time.time(), start_location, destination, qr_code_file)
 
 
