@@ -34,9 +34,5 @@ The Bus Rapid Transit (BRT) Ticketing System is a web application designed to fa
 - SQLite3: A serverless, self-contained SQL database engine used for data storage.
 - JavaScript: Used for implementing client-side functionalities, including the QR code scanning feature.
 - Instascan: A JavaScript library for QR code scanning.
-<<<<<<< HEAD
 - HTML and CSS: For designing the user interface of the application.
 
-=======
-- HTML and CSS: For designing the user interface of the application.
->>>>>>> e2d93d7 (updated with features)
