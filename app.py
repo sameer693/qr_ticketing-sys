@@ -3,7 +3,6 @@ import sqlite3
 from helpers import login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 from ticket import Ticket, generate_qr_code
-import time
 
 app = Flask(__name__)
 
