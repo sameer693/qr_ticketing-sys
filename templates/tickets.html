@@ -8,7 +8,10 @@
     <p>Ticket for: {{ username }}</p>
     <p>starting from :{{ start }}</p>
     <p>destiantion at :{{ destination }}</p>
-    <p>valid upto  :{{ time_remaining }}</p>
+    <p>valid upto  :{{ "%.2f"|format(time_remaining) }}</p>
+    <form method="post">
+      <button type="submit" class="btn btn-danger">Delete Ticket</button>
+  </form>
 </div>
       <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
