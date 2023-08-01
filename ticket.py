@@ -46,6 +46,3 @@ def generate_qr_code(
     qr_img.save(qr_code_file)
     
     return Ticket(random_string, time.time(), start_location, destination, qr_code_file)
-
-
-# Example usage

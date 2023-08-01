@@ -15,7 +15,6 @@ def get_db_connection():
     return conn
 
 
-# export FLASK_APP=hello.py
 # Home page
 @app.route("/", methods=["GET", "POST"])
 @login_required
@@ -119,6 +118,7 @@ def login():
 @login_required
 def logout():
     session.pop("username", None)
+    session.pop("id", None)
     return redirect("/login")
 
 
