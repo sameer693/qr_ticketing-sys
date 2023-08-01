@@ -6,4 +6,4 @@ time
 hashlib
 qrcode
 os
-pandas
+pytest
