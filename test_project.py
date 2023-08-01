@@ -139,7 +139,7 @@ def test_valid_upto(ticket_data):
     ticket = Ticket(**ticket_data)
 
     # Ticket's validity should be 1 hour
-    assert round(ticket.valid_upto()) == 3600
+    assert ticket.valid_upto() == 3600
 
 def test_generate_qr_code(tmpdir):
     start_location = 'Start'

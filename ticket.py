@@ -24,7 +24,7 @@ class Ticket:
     def valid_upto(self):
         current_time = time.time()
         validity_duration = 3600  # 1 hour validity
-        return validity_duration - (current_time - self.creation_time)
+        return round(validity_duration - (current_time - self.creation_time))
 
     def remove(self):
         os.remove(self.qr_code_file)
