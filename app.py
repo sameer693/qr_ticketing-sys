@@ -90,6 +90,13 @@ def forgot():
             return render_template("forgot.html")
         
         #genrate an otp and send it to user
+        otp=randint(1000,9999)
+        msg = Message('OTp for new password', sender = 'ctftechnoverse@gmail.com', recipients = [request.form.get("email")])
+        msg.body = f"otp is {otp}"
+        mail.send(msg)
+
+        
+
         #otp=randint(1000,9999)
         #send email to user with new password
         #generate new password
@@ -201,6 +208,11 @@ def generate_ticket():
         cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
         user = cursor.fetchone()
         print(user["username"])
+        if session['username']=="admin" :
+            #no flag for admin
+            flash("no flag for admin :)",category="idea")
+            return redirect("/generate_ticket")
+
         if user and user["username"]=="admin" and session["username"]!="admin":
             #they hacked and rewareded a flag
             flash("T3chn0v3rs3{h4ck3r_0f_4dm1n}",category="success")
