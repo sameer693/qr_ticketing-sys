@@ -1,0 +1,20 @@
+{% extends 'layout.html' %}
+
+{% block title %}enter otp{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Enter OTP</h1>
+    <p>Enter the OTP sent to your email address at {{email}}.</p>
+    <p>If you don't receive the OTP, please check your spam folder.</p>
+
+    <form method="post">
+        <div class="form-group">
+            <label for="otp">OTP</label>
+            <input type="text" class="form-control" id="otp" name="otp" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <p>If you still don't receive the OTP, please <a href="/forgot">click here</a> to resend the OTP.</p>
+    
+{% endblock %}

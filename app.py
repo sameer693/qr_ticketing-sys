@@ -2,7 +2,7 @@ import re
 from flask_mail import Mail, Message 
 from flask import Flask, render_template, request, redirect, session, flash
 import sqlite3
-from helpers import login_required,apology
+from helpers import login_required,apology,list_otp
 from werkzeug.security import check_password_hash, generate_password_hash
 from ticket import Ticket, generate_qr_code
 from random import randint
@@ -18,6 +18,7 @@ app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
 
 mail = Mail(app) 
 
@@ -70,6 +71,28 @@ def home():
         flash("T3chn0v3rs3{Kira_is_L}",category="success")
     return render_template("home.html", username=session["username"])
 
+@app.route("/otp",methods=["GET", "POST"])
+def otp():
+    if request.method == "POST":
+        if not request.form.get("otp"):
+            flash('must provide otp')
+            return apology("must provide otp", 403)
+        if int(request.form.get("otp")) not in list_otp:
+            flash('invalid otp')
+            return apology("invalid otp", 403)
+        list_otp.remove(int(request.form.get("otp")))
+        conn = get_db_connection()
+        cursor = conn.cursor()
+
+        # Retrieve user from the database with email
+        cursor.execute("SELECT * FROM users WHERE email = ?", (session["email"],))
+        user = cursor.fetchone()
+        session["id"]=user["id"]
+        session["username"]=user["username"]
+        #user will be redirected to change password
+        return redirect('/')
+    else:
+        return render_template("otp.html",email=session["email"])
 
 @app.route("/forgot",methods=["GET", "POST"])
 def forgot():
@@ -90,13 +113,18 @@ def forgot():
             return render_template("forgot.html")
         
         #genrate an otp and send it to user
-        otp=randint(1000,9999)
+        
+        #8 digit otp 
+        otp=randint(10000000,99999999)
         msg = Message('OTp for new password', sender = 'ctftechnoverse@gmail.com', recipients = [request.form.get("email")])
+
         msg.body = f"otp is {otp}"
         mail.send(msg)
 
-        
-
+        session["email"]=request.form.get("email")
+        list_otp.append(otp)
+        print(list_otp)
+        return redirect("/otp")
         #otp=randint(1000,9999)
         #send email to user with new password
         #generate new password
@@ -279,6 +307,7 @@ def scan_qr_code():
 @app.route("/process_qr_code", methods=["POST"])
 def process_qr_code():
     qr_code_data = request.form["qr_code_data"]
+
 
     # Handle the scanned QR code data
     # ...

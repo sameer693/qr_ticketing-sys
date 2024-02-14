@@ -3,6 +3,8 @@ from flask import redirect, render_template, request, session
 from datetime import datetime
 from time import time, mktime, strptime
 
+list_otp = []
+
 # Login required wrapper function
 def login_required(f):
     @wraps(f)
