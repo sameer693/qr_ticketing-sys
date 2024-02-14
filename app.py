@@ -90,7 +90,8 @@ def otp():
         session["id"]=user["id"]
         session["username"]=user["username"]
         #user will be redirected to change password
-        return redirect('/')
+        flash('otp verified now you can change password')
+        return redirect('/change_password')
     else:
         return render_template("otp.html",email=session["email"])
 
@@ -210,6 +211,30 @@ def login():
             return render_template("login.html", error="Invalid username or password")
 
     return render_template("login.html")
+
+@app.route("/change_password", methods=["GET", "POST"])
+@login_required
+def change_password():
+    if request.method == "POST":
+        new_password = request.form["new_password"]
+        confirm_password = request.form["confirm_password"]
+        if new_password != confirm_password:
+            return render_template("change_password.html", error="Passwords do not match")
+
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        # Hash the new password
+        hashed_password = generate_password_hash(new_password)
+
+        # Update the password in the database
+        cursor.execute("UPDATE users SET password = ? WHERE id = ?", (hashed_password, session["id"]))
+        conn.commit()
+        flash("Password changed successfully",category="success")
+        return redirect("/")
+    
+    return render_template("change_password.html")
+
+
 
 
 # Logout route
