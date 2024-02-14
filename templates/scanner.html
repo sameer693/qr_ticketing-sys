@@ -82,6 +82,16 @@
                 body: formData
             })
             .then(response => {
+                if (response.status === 302) {
+                    // redirect to the ticket page
+                    console.log('redirecting to ticket page');
+                    console.log(response);
+                    //process the response to get the url from json
+                    const data = response.json();
+                    data.then(function(result){
+                        window.location.href = result.url;
+                    });
+                }
                 console.log('QR code data sent successfully.');
                 showSuccessAnimation();
             })

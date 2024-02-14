@@ -1,6 +1,7 @@
+import json
 import re
 from flask_mail import Mail, Message 
-from flask import Flask, render_template, request, redirect, session, flash
+from flask import Flask, jsonify, render_template, request, redirect, session, flash
 import sqlite3
 from helpers import login_required,apology,list_otp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -344,6 +345,10 @@ def process_qr_code():
         return render_template("no_display.html")
     cursor.execute("SELECT * FROM users WHERE id = ?", (data["userid"],))
     user = cursor.fetchone()
+    # if user is admin then ask a key they formed from site
+    if user and user["username"]=="admin":
+        
+        return jsonify({"status": "admin",'url':"/key"}), 302
     t = Ticket(
         data["hash"],
         data["time"],
@@ -357,7 +362,20 @@ def process_qr_code():
     t.remove()
     return render_template("no_display.html")
 
-
+@app.route("/key",methods=["POST","GET"])
+def key():
+    if request.method == "POST":
+        if not request.form.get("key"):
+            flash('must provide key')
+            return render_template("key.html", error="must provide key")
+        if request.form.get("key")!="T3chn0v3rs3{Kira_is_L}":
+            flash('invalid key')
+            return render_template("key.html", error="invalid key")
+        if request.form.get("key")=="T3chn0v3rs3{Kira_is_L}":
+            flash('T3chn0v3rs3{$4m3er_$ury4_S41ki_Ku$uo}',category="success")
+            return redirect("/key")
+    else:
+        return render_template("key.html")
 def start_ngrok():
     from pyngrok import ngrok
 
