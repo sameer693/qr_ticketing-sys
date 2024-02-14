@@ -88,12 +88,17 @@ def forgot():
         if len(rows) != 1:
             flash('invalid email')
             return render_template("forgot.html")
+        
+        #genrate an otp and send it to user
+        #otp=randint(1000,9999)
         #send email to user with new password
         #generate new password
         new_pass="".join([chr(randint(65,90)) for i in range(8)])
         msg = Message('New Password', sender = 'ctftechnoverse@gmail.com', recipients = [request.form.get("email")])
         msg.body = f"new password is {new_pass}"
         mail.send(msg)
+        
+
         hash=generate_password_hash(new_pass)
         cursor.execute("UPDATE users SET password=? WHERE email=?", (hash,request.form.get("email")))
         conn.commit()
@@ -192,12 +197,11 @@ def generate_ticket():
         if not id:
             return render_template("generate_ticket.html", error="Invalid id")
         #check if id is of admin
-        print(id)
+        
         cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
         user = cursor.fetchone()
-        print(user)
         print(user["username"])
-        if user and user["username"]=="admin":
+        if user and user["username"]=="admin" and session["username"]!="admin":
             #they hacked and rewareded a flag
             flash("T3chn0v3rs3{h4ck3r_0f_4dm1n}",category="success")
             print("T3chn0v3rs3{h4ck3r_0f_4dm1n}")

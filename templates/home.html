@@ -20,4 +20,666 @@
             <button type="submit" class="btn btn-primary">Generate Ticket</button>
         </form>
     </div>
-{% endblock %}
+    <div class='noise-mask'>
+<div class='bus'>
+  <div class='bus-bod-top'>
+    <div class='dashboard'></div>
+    <div class='dashboard-window'></div>
+    <div class='dashboard-transom'></div>
+    <div class='cabin'></div>
+    <div class='mirror-rail'></div>
+    <div class='left-mirror'></div>
+    <div class='right-mirror'></div>
+    <div class='window-1'></div>
+    <div class='window-2'></div>
+    <div class='window-3'></div>
+    <div class='window-4'></div>
+    <div class='window-5'></div>
+  </div>
+  <div class='bus-bod-bot'>
+    <div class='grill'>
+      <div class='grill-bar-1'></div>
+      <div class='grill-bar-2'></div>
+      <div class='grill-bar-3'></div>
+      <div class='grill-bar-4'></div>
+    </div>
+    <div class='bumper'></div>
+    <div class='wheel-well-front'></div>
+    <div class='wheel-well-rear'></div>
+    <div class='wheel-left-front'>
+      <div class='hubcap'></div>
+    </div>
+    <div class='wheel-left-rear'>
+      <div class='hubcap'></div>
+    </div>
+    <div class='wheel-right-front'></div>
+    <div class='wheel-right-rear'></div>
+    <div class='chassy-front-top'></div>
+    <div class='chassy-front-bottom'></div>
+    <div class='chassy-back-top'></div>
+    <div class='chassy-back-bottom'></div>
+  </div>
+</div>
+<div class='road'></div>
+<div class='rock-1'></div>
+<div class='rock-2'></div>
+<div class='lamp-1'>
+  <div class='lamp-base'></div>
+  <div class='lamp-post'></div>
+  <div class='lamp-bulb'></div>
+  <div class='lamp-light'></div>
+</div>
+<div class='lamp-2'>
+  <div class='lamp-base'></div>
+  <div class='lamp-post'></div>
+  <div class='lamp-bulb'></div>
+  <div class='lamp-light'></div>
+</div>
+
+    </div>
+
+    <style>
+      body {
+  background-color: #F2D2FF;
+  overflow: hidden;
+}
+
+.noise-mask {
+  width: 100vw;
+  height: 62%;
+  position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  z-index: -8;
+  
+}
+
+.road {
+  width: 120%;
+  height: 2px;
+  background-color: red;
+  top: 370px;
+  left: 00px;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+}
+
+.bus {
+  position: relative;
+  width: 500px;
+  margin: 0 auto;
+  top: 100px;
+  animation: bus-bounce .75s linear infinite;
+}
+
+.dashboard {
+  background-color: #4A5286;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border: 2px solid red;
+  height: 95px;
+  width: 80px;
+  top: 45px;
+  position: absolute;
+  left: 80px;
+  z-index: 2;
+  transform: skew(-7deg);
+  z-index: 4;
+}
+
+.cabin {
+  background-color: #4A5286;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 30px;
+  border: 2px solid red;
+  border-bottom: 0;
+  height: 95px;
+  width: 410px;
+  top: 45px;
+  position: absolute;
+  right: 0;
+  z-index: 2;
+}
+
+.chassy-front-top {
+  width: 450px;
+  position: absolute;
+  right: 0;
+  height: 60px;
+  top: 140px;
+  border-top-left-radius: 30px;
+  background-color: #4A5286;
+  border: 2px solid red;
+  z-index: 3;
+}
+
+.chassy-front-bottom {
+  width: 450px;
+  position: absolute;
+  margin: 0 auto;
+  height: 30px;
+  top: 200px;
+  right: 0;
+  background-color: #656FAF;
+  border: 2px solid red;
+  z-index: 3;
+}
+
+.chassy-back-top {
+  width: 500px;
+  position: absolute;
+  height: 65px;
+  top: 140px;
+  right: 0;
+  border: 2px solid red;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 2px;
+  background-color: #4A5286;
+  z-index: 2;
+}
+
+.chassy-back-bottom {
+  width: 50px;
+  position: absolute;
+  height: 20px;
+  top: 205px;
+  left: 0px;
+  border: 2px solid red;
+  border-top-right-radius: 18px;
+  background-color: #4A5286;
+  z-index: 1;
+}
+
+.wheel-well-front {
+  width: 75px;
+  position: absolute;
+  left: 75px;
+  height: 35px;
+  top: 195px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #A8B0E7;
+  border: 2px solid red;
+  z-index: 4;
+}
+
+.wheel-well-rear {
+  width: 75px;
+  position: absolute;
+  right: 55px;
+  height: 38px;
+  top: 192px;
+  border-top-left-radius: 80px;
+  border-top-right-radius: 80px;
+  background-color: #A8B0E7;
+  border: 2px solid red;
+  z-index: 4;
+}
+
+.wheel, .right-wheel, .wheel-right-front, .wheel-right-rear, .left-wheel, .wheel-left-front, .wheel-left-rear {
+  height: 60px;
+  width: 60px;
+  display: block;
+  border-radius: 100px;
+  border: 2px solid red;
+  position: absolute;
+  top: 200px;
+}
+
+.right-wheel, .wheel-right-front, .wheel-right-rear {
+  background-color: red;
+  z-index: 0;
+}
+
+.left-wheel, .wheel-left-front, .wheel-left-rear {
+  background-color: #25294a;
+  z-index: 5;
+}
+
+.wheel-left-front {
+  left: 83px;
+  animation: wheel-bounce .8s infinite ease-in-out;
+}
+
+.wheel-left-rear {
+  right: 62px;
+  animation: rear-wheel-bounce 2s infinite ease-in-out;
+}
+
+.wheel-right-front {
+  left: 35px;
+}
+
+.wheel-right-rear {
+  right: 105px;
+}
+
+.bumper {
+  width: 60px;
+  position: absolute;
+  height: 20px;
+  top: 215px;
+  left: -10px;
+  border: 2px solid red;
+  border-radius: 5px;
+  background-color: #25294a;
+  z-index: 10;
+  animation: bumper-move .7s ease-in-out infinite;
+}
+
+.hubcap {
+  height: 30px;
+  width: 30px;
+  display: inline-block;
+  background-color: red;
+  border-radius: 100px;
+  position: relative;
+  border: 2px solid red;
+  left: 13px;
+  top: 13px;
+  z-index: 6;
+}
+
+.dashboard-window {
+  height: 50px;
+  width: 72px;
+  border: 2px solid red;
+  background-color: #A8B0E7;
+  z-index: 6;
+  position: absolute;
+  margin: 0;
+  top: 84px;
+  transform: skew(-7deg);
+  left: 81px;
+}
+.dashboard-window:after {
+  position: relative;
+  content: '';
+  height: 50px;
+  background-color: red;
+  width: 2px;
+  top: 0px;
+  left: 34px;
+  display: block;
+  z-index: 7;
+}
+
+.dashboard-transom {
+  height: 25px;
+  width: 70px;
+  border: 2px solid red;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  background-color: #A8B0E7;
+  z-index: 6;
+  position: absolute;
+  margin: 0;
+  top: 53px;
+  transform: skew(-7deg);
+  left: 88px;
+}
+
+.cabin-window, .window-1, .window-2, .window-3, .window-4, .window-5 {
+  height: 50px;
+  width: 50px;
+  border: 2px solid red;
+  border-radius: 2px;
+  background-color: #A8B0E7;
+  z-index: 6;
+  position: absolute;
+  margin: 0;
+  top: 84px;
+}
+.cabin-window:after, .window-1:after, .window-2:after, .window-3:after, .window-4:after, .window-5:after {
+  position: relative;
+  content: '';
+  height: 2px;
+  background-color: red;
+  width: 50px;
+  top: 20px;
+  display: block;
+  z-index: 7;
+}
+
+.window-background-1, .window-3 {
+  background: linear-gradient(-45deg, #a8b0e7 0%, #a8b0e7 50%, #d3d7f3 51%, #d3d7f3 100%);
+  background-size: 200% 200%;
+  animation: window-light 3s ease infinite;
+}
+
+.window-background-2, .window-1, .window-4 {
+  background: linear-gradient(135deg, #a8b0e7 0%, #a8b0e7 50%, #d3d7f3 51%, #d3d7f3 100%);
+  background-size: 200% 200%;
+  animation: window-light 3s ease infinite;
+}
+
+.window-background-3, .window-5 {
+  background: linear-gradient(135deg, #a8b0e7 0%, #a8b0e7 20%, #d3d7f3 21%, #d3d7f3 70%, #a8b0e7 71%, #a8b0e7 100%);
+  background-size: 200% 200%;
+  animation: window-light 3s ease infinite;
+}
+
+.window-background-4, .dashboard-window {
+  background: linear-gradient(135deg, #d3d7f3 0%, #d3d7f3 30%, #a8b0e7 31%, #a8b0e7 55%, #d3d7f3 56%, #d3d7f3 100%);
+  background-size: 200% 200%;
+  animation: window-light 3s ease infinite;
+}
+
+.window-1 {
+  left: 180px;
+}
+
+.window-2 {
+  background-color: #d3d7f3;
+  left: 240px;
+}
+
+.window-3 {
+  left: 300px;
+  -moz-transition-delay: 2s;
+  -o-transition-delay: 2s;
+  -webkit-transition-delay: 2s;
+  transition-delay: 2s;
+}
+
+.window-4 {
+  left: 360px;
+}
+
+.window-5 {
+  left: 420px;
+}
+
+.grill {
+  width: 40px;
+  height: 35px;
+  background-color: #25294a;
+  position: absolute;
+  top: 165px;
+  z-index: 7;
+  border: 2px solid red;
+  border-radius: 6px;
+}
+
+.grill-bar, .grill-bar-1, .grill-bar-2, .grill-bar-3, .grill-bar-4 {
+  height: 2px;
+  background-color: red;
+  width: 100%;
+  position: relative;
+}
+
+.grill-bar-1 {
+  top: 6px;
+}
+
+.grill-bar-2 {
+  top: 12px;
+}
+
+.grill-bar-3 {
+  top: 18px;
+}
+
+.grill-bar-4 {
+  top: 24px;
+}
+
+.rock, .rock-1, .rock-2 {
+  width: 8px;
+  height: 6px;
+  border: 2px solid red;
+  border-bottom: 0;
+  border-radius: 10px;
+  position: absolute;
+  top: 365px;
+  left: -20%;
+  background-color: #F2D2FF;
+}
+
+.rock-1 {
+  animation: rock-move-1 3s linear infinite;
+}
+
+.rock-2 {
+  animation: rock-move-2 2.5s linear infinite;
+}
+
+.lamp-1 {
+  position: relative;
+  top: 235px;
+  left: -20%;
+  animation: lamp-move-1 4s linear infinite;
+}
+
+.lamp-2 {
+  position: absolute;
+  top: 245px;
+  left: -20%;
+  animation: lamp-move-2 8s linear infinite;
+}
+
+.lamp-base {
+  background-color: transparent;
+  height: 125px;
+  width: 15px;
+  border: 2px solid red;
+  border-bottom: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  position: relative;
+}
+
+.lamp-post {
+  position: absolute;
+  top: -171px;
+  left: 8px;
+  border: 2px solid red;
+  border-right: 0;
+  border-bottom: 0;
+  height: 170px;
+  width: 110px;
+  border-top-left-radius: 50px;
+  z-index: 1;
+}
+
+.lamp-bulb {
+  height: 10px;
+  width: 50px;
+  background-color: #ffffff;
+  position: absolute;
+  top: -169px;
+  left: 65px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.lamp-light {
+  border-bottom: 290px solid rgba(255, 255, 255, 0.2);
+  border-left: 20px solid transparent;
+  border-right: 110px solid transparent;
+  height: 0;
+  width: 50px;
+  position: absolute;
+  top: -160px;
+  left: 45px;
+  z-index: 10;
+}
+
+.mirror-rail {
+  width: 114px;
+  height: 65px;
+  background-color: transparent;
+  border-radius: 10px;
+  position: absolute;
+  display: block;
+  top: 75px;
+  left: 62px;
+  border: 2px solid red;
+  z-index: 3;
+}
+
+.mirror, .left-mirror, .right-mirror {
+  width: 13px;
+  height: 42px;
+  background-color: #25294a;
+  border: 2px solid red;
+  position: absolute;
+  top: 87px;
+  z-index: 8;
+}
+
+.left-mirror {
+  left: 170px;
+}
+
+.right-mirror {
+  left: 54px;
+}
+
+@keyframes lamp-move-1 {
+  0% {
+    left: -20%;
+  }
+  100% {
+    left: 120%;
+  }
+}
+@keyframes lamp-move-2 {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 180%;
+  }
+}
+@keyframes rock-move-1 {
+  0% {
+    left: -0%;
+  }
+  99% {
+    left: 130%;
+  }
+  100% {
+    left: -20%;
+  }
+}
+@keyframes bumper-move {
+  0% {
+    top: 215px;
+  }
+  25% {
+    top: 216px;
+  }
+  50% {
+    top: 215px;
+  }
+  75% {
+    top: 214px;
+  }
+  100% {
+    top: 215px;
+  }
+}
+@keyframes bus-bounce {
+  0% {
+    top: 100px;
+  }
+  20% {
+    top: 99px;
+  }
+  40% {
+    top: 100px;
+  }
+  75% {
+    top: 98px;
+  }
+  100% {
+    top: 100px;
+  }
+}
+@keyframes wheel-bounce {
+  0% {
+    top: 201px;
+  }
+  25% {
+    top: 200px;
+  }
+  50% {
+    top: 199px;
+  }
+  75% {
+    top: 200px;
+  }
+  100% {
+    top: 201px;
+  }
+}
+@keyframes rear-wheel-bounce {
+  0% {
+    top: 200px;
+  }
+  48% {
+    top: 199px;
+  }
+  50% {
+    top: 198px;
+  }
+  52% {
+    top: 199px;
+  }
+  100% {
+    top: 200px;
+  }
+}
+@keyframes window-light {
+  0% {
+    background-position: 0% 72%;
+  }
+  50% {
+    background-position: 100% 29%;
+  }
+  100% {
+    background-position: 0% 72%;
+  }
+}
+p.speech {
+  position: fixed;
+  bottom: 50px;
+  right: 500px;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  background-color: #fff;
+  border: 4px solid #666;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow: 2px 2px 4px #888;
+  -moz-box-shadow: 2px 2px 4px #888;
+  box-shadow: 2px 2px 4px #888;
+}
+
+p2.speech {
+  position: fixed;
+  bottom: 50px;
+  right: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  background-color: #fff;
+  border: 4px solid #666;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  border-radius: 30px;
+  -webkit-box-shadow: 2px 2px 4px #888;
+  -moz-box-shadow: 2px 2px 4px #888;
+  box-shadow: 2px 2px 4px #888;
+}
+
+    </style>
+        
+    {% endblock %}
