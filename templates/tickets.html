@@ -10,6 +10,7 @@
     <p>destiantion at :{{ destination }}</p>
     <p>valid upto  :{{ "%.2f"|format(time_remaining) }}</p>
     <form method="post">
+    <input type="hidden" name="id" value='{{ id }}'>
       <button type="submit" class="btn btn-danger">Delete Ticket</button>
   </form>
 </div>

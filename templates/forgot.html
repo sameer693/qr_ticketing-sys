@@ -1,0 +1,17 @@
+{% extends 'layout.html' %}
+
+{% block title %}Forgot{% endblock %}
+
+{% block content %}
+    <h1>Forgot Password</h1>
+    <div class="container-fluid">
+        <form action="/forgot" method="post">
+            <h1 class="h3 mb-3 fw-normal">Please enter your email</h1>
+            <div class="form-floating">
+                <input id="floatingemail" name="email" type="email" class="form-control" placeholder="Email"  required>
+              </div>  
+            <br>           
+            <button class="w-100 btn  btn-primary" type="submit">submit</button>
+          </form>
+    </div>
+{% endblock %}

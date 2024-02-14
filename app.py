@@ -1,16 +1,30 @@
+import re
+from flask_mail import Mail, Message 
 from flask import Flask, render_template, request, redirect, session, flash
 import sqlite3
-from helpers import login_required
+from helpers import login_required,apology
 from werkzeug.security import check_password_hash, generate_password_hash
 from ticket import Ticket, generate_qr_code
-
+from random import randint
 app = Flask(__name__)
 
 app.secret_key = "your_secret_key"
+# Ensure mail Api
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'ctftechnoverse@gmail.com'#to be filled
+app.config['MAIL_PASSWORD'] = 'qkow rxpo bxds fgud'#to be filled
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+# Ensure templates are auto-reloaded
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+mail = Mail(app) 
 
 # Database connection
 def get_db_connection():
-    conn = sqlite3.connect("database.db")
+    #conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect("DB.db")
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -52,7 +66,42 @@ def home():
         )
         conn.commit()
         return redirect("/generate_ticket")
+    if session["username"]=="admin":
+        flash("T3chn0v3rs3{Kira_is_L}",category="success")
     return render_template("home.html", username=session["username"])
+
+
+@app.route("/forgot",methods=["GET", "POST"])
+def forgot():
+    if request.method == "POST":
+        if not request.form.get("email"):
+            flash('must provide email')
+            return apology("must provide email", 403)
+        
+        pattern = r"\"?([-a-zA-Z0-9.`?{}]+@\w+\.\w+)\"?"
+        if not re.match(pattern,request.form.get("email")):
+            return render_template("forgot.html", error="Invalid Email")
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        rows=cursor.execute("SELECT * FROM users WHERE email=?", (request.form.get("email"),)).fetchall()
+        
+        if len(rows) != 1:
+            flash('invalid email')
+            return render_template("forgot.html")
+        #send email to user with new password
+        #generate new password
+        new_pass="".join([chr(randint(65,90)) for i in range(8)])
+        msg = Message('New Password', sender = 'ctftechnoverse@gmail.com', recipients = [request.form.get("email")])
+        msg.body = f"new password is {new_pass}"
+        mail.send(msg)
+        hash=generate_password_hash(new_pass)
+        cursor.execute("UPDATE users SET password=? WHERE email=?", (hash,request.form.get("email")))
+        conn.commit()
+        #update database with new password
+        flash('new password sent to your email')
+        return redirect("/")
+    else:
+        return render_template("forgot.html")
 
 
 # Registration page
@@ -62,10 +111,16 @@ def register():
         username = request.form["username"]
         password = request.form["password"]
         confirm_password = request.form["confirm_password"]
-
+        email = request.form["email"]   
         if password != confirm_password:
             return render_template("register.html", error="Passwords do not match")
-
+        #email validation
+        if not email:
+            return render_template("register.html", error="Email is required")
+        pattern = r"\"?([-a-zA-Z0-9.`?{}]+@\w+\.\w+)\"?"
+        if not re.match(pattern,request.form.get("email")):
+            return render_template("register.html", error="Invalid Email")
+        
         conn = get_db_connection()
         cursor = conn.cursor()
 
@@ -75,13 +130,18 @@ def register():
 
         if user:
             return render_template("register.html", error="Username already exists")
+        # Check if email already exists
+        cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+        user = cursor.fetchone()
+        if user:
+            return render_template("register.html", error="Email already exists")
         # Hash the password
         hashed_password = generate_password_hash(password)
 
         # Insert new user into the database
         cursor.execute(
-            "INSERT INTO users (username, password) VALUES (?, ?)",
-            (username, hashed_password),
+            "INSERT INTO users (username, password,email) VALUES (?, ?, ?)",
+            (username, hashed_password, email),
         )
         conn.commit()
         return redirect("/")
@@ -102,7 +162,6 @@ def login():
         # Retrieve user from the database
         cursor.execute("SELECT * FROM users WHERE username = ?", (username,))
         user = cursor.fetchone()
-
         if user and check_password_hash(user["password"], password):
             session["username"] = username
             session["id"] = user["id"]
@@ -127,12 +186,28 @@ def logout():
 @login_required
 def generate_ticket():
     if request.method == "POST":
+        id= request.form["id"]
         conn = get_db_connection()
         cursor = conn.cursor()
+        if not id:
+            return render_template("generate_ticket.html", error="Invalid id")
+        #check if id is of admin
+        print(id)
+        cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
+        user = cursor.fetchone()
+        print(user)
+        print(user["username"])
+        if user and user["username"]=="admin":
+            #they hacked and rewareded a flag
+            flash("T3chn0v3rs3{h4ck3r_0f_4dm1n}",category="success")
+            print("T3chn0v3rs3{h4ck3r_0f_4dm1n}")
+            return redirect("/")
+
         cursor.execute(
             "DELETE FROM history WHERE userid = ? and status=0", (session["id"],)
         )
         conn.commit()
+        return redirect("/")
     username = session["username"]
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -151,6 +226,7 @@ def generate_ticket():
     )
     return render_template(
         "tickets.html",
+        id=session["id"],
         username=username,
         start=t.start_location,
         destination=t.destination,
