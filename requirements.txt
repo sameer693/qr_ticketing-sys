@@ -7,3 +7,4 @@ hashlib
 qrcode
 os
 pytest
+flask_mail
