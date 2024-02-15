@@ -1,0 +1,7 @@
+authtoken: 2Rt8rL5O7ZlE1MFK9IQx8MByKuG_39RerXQQiVzWrV1CZeWP8
+version: 2
+tunnels:
+  your_tunnel_name:
+    proto: http
+    hostname: leopard-clever-narwhal.ngrok-free.app
+    addr: 127.0.0.1:5000
