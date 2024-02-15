@@ -6,11 +6,12 @@
     <h1>Welcome, {{ username }}</h1>
     <p>This is the home page of the ticketing system. Developed by <a href="https://www.linkedin.com/in/sameeryadav693/" class="text-black" >Sameer yadav</a></p> </p>
     
-
     <div  id="logo" class="logo">
         <a href="https://www.iiitnr.ac.in/" class="text-black"  ><img src="static/iiitlogo.png" alt="iiitlogo" width='200' height="200" >
         </a>
     </div>
+    <button class="hint-button">Hint CTF </button>
+<div class="hint-text">May the force guide the one who governs.</div>
 
 
     <div class="container">
@@ -86,6 +87,7 @@
     </div>
 
     <style>
+
       body {
   background-color: #F2D2FF;
   overflow: hidden;
@@ -97,6 +99,22 @@
   margin: auto;
   height: auto;
   z-index: -8;
+}
+.hint-button {
+  /* Style the button as desired */  
+  background-color: #4c60af;
+  position: relative;
+}
+
+.hint-text {
+  /* Style the hint as desired */
+  display: none; /* Initially hidden */
+  margin: auto;
+}
+
+.hint-button:hover + .hint-text {
+  display: block; /* Show hint on hover */
+
 }
 
 
