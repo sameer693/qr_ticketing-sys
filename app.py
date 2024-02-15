@@ -364,14 +364,15 @@ def process_qr_code():
 
 @app.route("/key",methods=["POST","GET"])
 def key():
+    '''if user is admin then ask a key they formed from site and give them a flag change the key in the code to get the flag'''
     if request.method == "POST":
         if not request.form.get("key"):
             flash('must provide key')
             return render_template("key.html", error="must provide key")
-        if request.form.get("key")!="T3chn0v3rs3{Kira_is_L}":
+        if request.form.get("key")!="saikikusuo":
             flash('invalid key')
             return render_template("key.html", error="invalid key")
-        if request.form.get("key")=="T3chn0v3rs3{Kira_is_L}":
+        if request.form.get("key")=="saikikusuo":
             flash('T3chn0v3rs3{$4m3er_$ury4_S41ki_Ku$uo}',category="success")
             return redirect("/key")
     else:

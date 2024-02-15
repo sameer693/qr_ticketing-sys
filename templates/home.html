@@ -4,8 +4,15 @@
 
 {% block content %}
     <h1>Welcome, {{ username }}</h1>
-    <p>This is the home page of the ticketing system.</p>
+    <p>This is the home page of the ticketing system. Developed by <a href="https://www.linkedin.com/in/sameeryadav693/" class="text-black" >Sameer yadav</a></p> </p>
     
+
+    <div  id="logo" class="logo">
+        <a href="https://www.iiitnr.ac.in/" class="text-black"  ><img src="static/iiitlogo.png" alt="iiitlogo" width='200' height="200" >
+        </a>
+    </div>
+
+
     <div class="container">
         <h1>Generate Ticket</h1>
         <form action="/" method="POST">
@@ -83,6 +90,15 @@
   background-color: #F2D2FF;
   overflow: hidden;
 }
+.logo {
+  position: absolute;
+  top: 20%;
+  right: 0;
+  margin: auto;
+  height: auto;
+  z-index: -8;
+}
+
 
 .noise-mask {
   width: 100vw;
