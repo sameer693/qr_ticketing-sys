@@ -90,6 +90,8 @@ def otp():
         user = cursor.fetchone()
         session["id"]=user["id"]
         session["username"]=user["username"]
+        if user["username"]=="admin":
+            return redirect("/")
         #user will be redirected to change password
         flash('otp verified now you can change password')
         return redirect('/change_password')
