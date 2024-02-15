@@ -11,10 +11,21 @@ app = Flask(__name__)
 
 app.secret_key = "your_secret_key"
 # Ensure mail Api
+'''
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'ctftechnoverse@gmail.com'#to be filled
 app.config['MAIL_PASSWORD'] = 'qkow rxpo bxds fgud'#to be filled
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+'''
+
+'''
+hvwi zjyq lzzv lcvi'''
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'ctftechnoverse1@gmail.com'#to be filled
+app.config['MAIL_PASSWORD'] = 'hvwi zjyq lzzv lcvi'#to be filled
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 # Ensure templates are auto-reloaded
@@ -120,7 +131,7 @@ def forgot():
         
         #8 digit otp 
         otp=randint(10000000,99999999)
-        msg = Message('OTp for new password', sender = 'ctftechnoverse@gmail.com', recipients = [request.form.get("email")])
+        msg = Message('OTp for new password', sender = 'ctftechnoverse1@gmail.com', recipients = [request.form.get("email")])
 
         msg.body = f"otp is {otp}"
         mail.send(msg)
@@ -137,7 +148,7 @@ def forgot():
         msg.body = f"new password is {new_pass}"
         mail.send(msg)
         
-
+        #'UPDATE users SET email=ctftechnoverse1@gmail.com WHERE id=3;'
         hash=generate_password_hash(new_pass)
         cursor.execute("UPDATE users SET password=? WHERE email=?", (hash,request.form.get("email")))
         conn.commit()
